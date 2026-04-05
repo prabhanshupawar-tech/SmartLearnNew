@@ -1,0 +1,48 @@
+package com.smartlearn.smartlearn.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    private final JwtFilter jwtFilter;
+
+    public SecurityConfig(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+
+                // 🔓 Public APIs
+                .requestMatchers("/auth/**").permitAll()
+                
+                // 👤 USER + ADMIN (GET only)
+                .requestMatchers(HttpMethod.GET, "/questions/**")
+                .hasAnyRole("USER", "ADMIN")
+
+                // 👑 ADMIN ONLY
+                .requestMatchers("/questions/analytics").hasRole("ADMIN")
+                .requestMatchers("/questions/**").hasRole("ADMIN") // POST, DELETE
+
+
+                // 🔐 everything else
+                .anyRequest().authenticated()
+            );
+
+        return http.build();
+    }
+
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+}

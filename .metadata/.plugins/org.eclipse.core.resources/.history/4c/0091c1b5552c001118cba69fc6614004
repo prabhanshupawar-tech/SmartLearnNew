@@ -1,0 +1,69 @@
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.smartlearn.smartlearn.Question;
+import com.smartlearn.smartlearn.Result;
+import com.smartlearn.smartlearn.dto.AnswerRequest;
+import com.smartlearn.smartlearn.repository.QuestionRepository;
+import com.smartlearn.smartlearn.repository.ResultRepository;
+
+@Service
+public class QuestionService {
+
+    private final QuestionRepository repo;
+    private final ResultRepository resultRepo;
+
+    // ✅ SINGLE constructor
+    public QuestionService(QuestionRepository repo, ResultRepository resultRepo) {
+        this.repo = repo;
+        this.resultRepo = resultRepo;
+    }
+
+    public List<Question> getAllQuestions() {
+        return repo.findAll();
+    }
+
+    public List<Question> getByTopic(String topic) {
+        return repo.findByTopic(topic);
+    }
+
+    public Question addQuestion(Question q) {
+        return repo.save(q);
+    }
+
+    public void deleteQuestion(Long id) {
+        repo.deleteById(id);
+    }
+
+    public int calculateScore(AnswerRequest request) {
+        int score = 0;
+
+        for (AnswerRequest.Answer ans : request.getAnswers()) {
+
+            Question q = repo.findById(ans.getQuestionId()).orElse(null);
+
+            if (q == null) {
+                System.out.println("Question not found: " + ans.getQuestionId());
+                continue;
+            }
+
+            if (q.getCorrectAnswer() != null &&
+                q.getCorrectAnswer().equalsIgnoreCase(ans.getSelectedAnswer())) {
+                score++;
+            }
+        }
+
+        // ✅ Save result
+        Result result = new Result();
+        result.setUserId(request.getUserId());
+        result.setScore(score);
+        result.setTotalQuestions(request.getAnswers().size());
+        result.setSubmittedAt(LocalDateTime.now());
+
+        resultRepo.save(result);
+
+        return score;
+    }
+}

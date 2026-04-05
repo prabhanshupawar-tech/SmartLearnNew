@@ -1,0 +1,5 @@
+package com.smartlearn.smartlearn.controller;
+
+public class QuestionController {
+
+}

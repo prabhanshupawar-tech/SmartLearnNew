@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.repository.QuestionRepository"/>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.service.QuestionService"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.Question"/>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.Result"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.SignatureAlgorithm"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.repository.UserRepository"/>
+    <fullyQualifiedTypeName name="org.apache.catalina.User"/>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.entity.User.User"/>
+    <fullyQualifiedTypeName name="com.smartlearn.smartlearn.util.JwtUtil"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.FilterChain"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="io.jsonwebtoken.Jwts"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,5 @@
+package com.smartlearn.smartlearn.repository;
+
+public class QuestionRepository {
+
+}

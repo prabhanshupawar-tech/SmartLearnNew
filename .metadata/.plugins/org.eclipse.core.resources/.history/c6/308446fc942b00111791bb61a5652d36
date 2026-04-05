@@ -1,0 +1,41 @@
+package com.smartlearn.smartlearn.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.smartlearn.smartlearn.Question;
+import com.smartlearn.smartlearn.service.QuestionService;
+
+public class QuestionController {
+	private final QuestionService service;
+	
+	public QuestionController (QuestionService service) {
+		this.service=service;
+		
+	}
+	
+	@GetMapping
+	public List <Question> getAll(){
+		return service.getAllQuestions();
+	}
+	@GetMapping("/topic/{topic}")
+	public List<Question>getByTopic(@PathVariable String topic){
+		return service.getByTopic(topic);
+	}
+	@PostMapping
+	public Question add(@RequestBody Question q) {
+		return service.addQuestion(q);
+		
+	}
+	@DeleteMapping("/{id}")
+	public String delete (@PathVariable Long id) {
+		service.deleteQuestion(id);
+		return "Deleted successfully";
+	}
+	
+}

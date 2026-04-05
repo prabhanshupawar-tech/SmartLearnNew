@@ -1,0 +1,5 @@
+package com.smartlearn.smartlearn.entity.User;
+
+public class User {
+
+}

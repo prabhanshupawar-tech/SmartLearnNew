@@ -1,0 +1,5 @@
+package com.smartlearn.smartlearn.service;
+
+public class QuestionService {
+
+}

@@ -1,0 +1,49 @@
+package com.smartlearn.smartlearn.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.smartlearn.smartlearn.Question;
+import com.smartlearn.smartlearn.dto.AnswerRequest;
+import com.smartlearn.smartlearn.repository.QuestionRepository;
+
+@Service
+public class QuestionService {
+	
+		private final QuestionRepository repo;
+		
+		public QuestionService(QuestionRepository repo) {
+			this.repo=repo;
+			}
+		
+		public List<Question> getAllQuestions(){
+			return repo.findAll();
+		}
+		
+		public List<Question> getByTopic(String topic)	{
+			return repo.findByTopic(topic);
+			
+		}
+		
+		public Question addQuestion(Question q) {
+			return repo.save(q);
+		}
+		
+		public void deleteQuestion(Long id) {
+			repo.deleteById(id);
+		}
+
+		
+		public int calculateScore(AnswerRequest request) {
+			int score=0;
+			for(AnswerRequest.Answer ans:request.getAnswers()) {
+				Question q=repo.findById(ans.getQuestionId()).orElse(null);
+				if(q !=null && q.getCorrectAnswer().equals(ans.getSelectedAnswer())) {
+					score++;
+				}
+			}
+			return score;
+			
+		}
+		}

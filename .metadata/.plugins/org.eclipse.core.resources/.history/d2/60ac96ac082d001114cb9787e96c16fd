@@ -1,0 +1,5 @@
+package com.smartlearn.smartlearn.config;
+
+public class SecurityConfig {
+
+}

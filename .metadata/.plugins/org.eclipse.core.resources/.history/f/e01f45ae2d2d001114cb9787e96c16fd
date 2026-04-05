@@ -1,0 +1,36 @@
+package com.smartlearn.smartlearn.controller;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.smartlearn.smartlearn.entity.User.User;
+// ✅ correct import
+import com.smartlearn.smartlearn.repository.UserRepository;
+import com.smartlearn.smartlearn.util.JwtUtil;         // ✅ add this
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final UserRepository repo;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(UserRepository repo, JwtUtil jwtUtil) {
+        this.repo = repo;
+        this.jwtUtil = jwtUtil;
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+
+        User dbUser = repo.findByUsername(user.getUsername()).orElse(null);
+
+        if (dbUser != null && dbUser.getPassword().equals(user.getPassword())) {
+            return jwtUtil.generateToken(user.getUsername());
+        }
+
+        return "Invalid credentials";
+    }
+}
