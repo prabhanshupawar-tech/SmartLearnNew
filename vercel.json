@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "smartlearn-ui/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "smartlearn-ui/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/smartlearn-ui/$1"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "https://smartlearn-backend.onrender.com"
+  }
+}
