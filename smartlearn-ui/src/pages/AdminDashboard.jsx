@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { API_BASE_URL } from "../api";
 
 function AdminDashboard() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const response = await fetch("http://localhost:8083/tests", {
+        const response = await fetch(`${API_BASE_URL}/tests`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -50,7 +51,7 @@ function AdminDashboard() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8083/tests", {
+      const response = await fetch(`${API_BASE_URL}/tests`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +92,7 @@ function AdminDashboard() {
 
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8083/tests/${testId}`, {
+      const response = await fetch(`${API_BASE_URL}/tests/${testId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -125,7 +126,7 @@ function AdminDashboard() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8083/questions", {
+      const response = await fetch(`${API_BASE_URL}/questions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

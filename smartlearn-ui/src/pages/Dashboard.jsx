@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import StatsCard from "../components/StatsCard";
-import { getAnalytics } from "../api";
+import { getAnalytics, API_BASE_URL } from "../api";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ function Dashboard() {
         // Fetch user-specific results and recent activity
         const userId = Number(localStorage.getItem("userId") || 0);
         if (userId) {
-          const userResultsResp = await fetch(`http://localhost:8083/api/results/user/${userId}`, {
+          const userResultsResp = await fetch(`${API_BASE_URL}/api/results/user/${userId}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
               "Content-Type": "application/json",
@@ -71,7 +71,7 @@ function Dashboard() {
         }
 
         // Fetch tests from backend
-        const response = await fetch("http://localhost:8083/tests/available", {
+        const response = await fetch(`${API_BASE_URL}/tests/available`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
